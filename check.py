@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import requests, sys, socket
-from multiprocessing.dummy import Pool as ThreadPool
+from multiprocessing.dummy import Pool
 
 def hostname_resolves(hostname):
     try:
@@ -12,10 +12,9 @@ def hostname_resolves(hostname):
 
 check = sys.argv[1]
 domains = sys.argv[2]
-pool = ThreadPool(20)
+pool = Pool(20)
 check_list = {}
 check = "http://" + check
-check = "http://www.starbucks.com"
 
 def checkRedirectDomain(domain):
         if hostname_resolves(domain.strip()):
