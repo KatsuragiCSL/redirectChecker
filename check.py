@@ -14,7 +14,9 @@ check = sys.argv[1]
 domains = sys.argv[2]
 pool = Pool(20)
 check_list = {}
-check = "http://" + check
+check1 = "http://" + check
+check2 = "https://" + check
+check = [check1, check2]
 
 def checkRedirectDomain(domain):
         if hostname_resolves(domain.strip()):
@@ -31,5 +33,5 @@ with open(domains) as f:
     pool.close()
     pool.join()
     for x in check_list:
-        if check_list[x] != check:
+        if check_list[x] not in check:
             print(x + "\t" + "Target:" + check_list[x])
