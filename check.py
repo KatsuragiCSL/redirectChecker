@@ -16,7 +16,7 @@ pool = Pool(20)
 check_list = {}
 check1 = "http://" + check
 check2 = "https://" + check
-check = [check1, check2]
+check = [check1, check2, check1+"/", check2+"/"]
 
 def checkRedirectDomain(domain):
         if hostname_resolves(domain.strip()):
