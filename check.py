@@ -12,7 +12,7 @@ def hostname_resolves(hostname):
 
 check = sys.argv[1]
 domains = sys.argv[2]
-pool = Pool(20)
+pool = Pool(10)
 check_list = {}
 check1 = "http://" + check
 check2 = "https://" + check
@@ -24,6 +24,8 @@ def checkRedirectDomain(domain):
                 r = requests.get("http://" + domain.strip(), timeout = 3.05, allow_redirects = False)
                 if ("Location" in r.headers):
                     check_list[domain.strip()] = r.headers['Location']
+                else:
+                    check_list[domain.strip()] = domain.strip()
             except:
                 pass
 
