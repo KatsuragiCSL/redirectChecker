@@ -2,6 +2,7 @@
 
 import requests, sys, socket
 from multiprocessing.dummy import Pool
+from urllib.parse import urlparse
 
 def hostname_resolves(hostname):
     try:
@@ -14,9 +15,6 @@ check = sys.argv[1]
 domains = sys.argv[2]
 pool = Pool(10)
 check_list = {}
-check1 = "http://" + check
-check2 = "https://" + check
-check = [check1, check2, check1+"/", check2+"/"]
 
 def checkRedirectDomain(domain):
         if hostname_resolves(domain.strip()):
@@ -37,5 +35,6 @@ with open(domains) as f:
     pool.close()
     pool.join()
     for x in check_list:
-        if check_list[x] not in check:
+        parse = urlparse(check_list[x])
+        if (o.path != '/' or o.netloc != check):
             print(x + "\t" + "Target:" + check_list[x])
