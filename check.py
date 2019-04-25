@@ -21,11 +21,13 @@ check = [check1, check2, check1+"/", check2+"/"]
 def checkRedirectDomain(domain):
         if hostname_resolves(domain.strip()):
             try:
-                r = requests.get("http://" + domain.strip(), timeout = 3.05, allow_redirects = False)
-                if ("Location" in r.headers):
-                    check_list[domain.strip()] = r.headers['Location']
-                else:
-                    check_list[domain.strip()] = domain.strip()
+                #r = requests.get("http://" + domain.strip(), timeout = 3.05, allow_redirects = False)
+                r = requests.get("http://" + domain.strip(), timeout = 3.05)
+                #if ("Location" in r.headers):
+                 #   check_list[domain.strip()] = r.headers['Location']
+                #else:
+                 #   check_list[domain.strip()] = domain.strip()
+                check_list[domain.strip()] = r.url
             except:
                 pass
 
