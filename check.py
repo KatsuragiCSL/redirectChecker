@@ -7,12 +7,12 @@ from urllib.parse import urlparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', help='domain you want to exclude', dest='check', required=True)
 parser.add_argument('-w', help='wordlist of domains', dest='domains', required=True)
-parse.add_argument('-t', help='number of threads', dest='thread')
+parser.add_argument('-t', help='number of threads', dest='thread')
 
 args = parser.parse_args()
-check = args.check[0]
-domains = args.domains[0]
-thread = args.thread[0]
+check = args.check
+domains = args.domains
+thread = int(args.thread)
 
 check_list = {}
 pool = Pool(thread)
@@ -31,6 +31,7 @@ def checkRedirectDomain(domain):
                 check_list[domain.strip()] = r.url
             except:
                 pass
+
 
 with open(domains) as f:
     domain_list = f.readlines()
