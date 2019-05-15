@@ -12,7 +12,10 @@ parser.add_argument('-t', help='number of threads', dest='thread')
 args = parser.parse_args()
 check = args.check
 domains = args.domains
-thread = int(args.thread)
+if args.thread is not None:
+    thread = int(args.thread)
+else:
+    thread = 20
 
 check_list = {}
 pool = Pool(thread)
