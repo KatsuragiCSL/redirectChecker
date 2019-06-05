@@ -8,10 +8,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-d', help='domain you want to exclude', dest='check', required=True)
 parser.add_argument('-w', help='wordlist of domains', dest='domains', required=True)
 parser.add_argument('-t', help='number of threads', dest='thread')
+parser.add_argument('-x', help='text to be excluded in response', dest='exclude')
 
 args = parser.parse_args()
 check = args.check
 domains = args.domains
+exclude = args.exclude
 if args.thread is not None:
     thread = int(args.thread)
 else:
@@ -31,6 +33,9 @@ def checkRedirectDomain(domain):
         if hostname_resolves(domain.strip()):
             try:
                 r = requests.get("http://" + domain.strip(), timeout = 3.05)
+                if exclude is not None:
+                    if exclude in r.text:
+                        pass
                 check_list[domain.strip()] = r.url
             except:
                 pass
